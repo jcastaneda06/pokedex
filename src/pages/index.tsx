@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   const [searching, setSearching] = useState(false)
 
   function handleNameInput() {
-    setPokemonName(pokemonName.toLowerCase())
+    setPokemonName(pokemonName)
     getPokemon()
   }
 
@@ -25,7 +25,7 @@ const Home: NextPage = () => {
   async function getPokemon() {
     if (pokemonName) {
       setSearching(true)
-      await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`).then((response) => {
+      await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`).then((response) => {
         const pokemonData: Pokemon = response.data
         const pokemon: Pokemon = { ...pokemonData }
         console.log(pokemon)

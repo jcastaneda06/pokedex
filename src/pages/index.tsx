@@ -17,7 +17,7 @@ const Home: NextPage = () => {
     getPokemon()
   }
 
-  async function handleNext(buttonCode: number) {
+  function handleNext(buttonCode: number) {
     buttonCode == 0 ? setPokemonId(pokemonId - 1) : setPokemonId(pokemonId + 1)
     setPokemonName('')
   }
@@ -31,6 +31,7 @@ const Home: NextPage = () => {
         console.log(pokemon)
         setPokemonId(pokemon.id)
         setPokemon(pokemon)
+        return response.data
       }).catch((error) => {
         console.error(error)
         setPokemon(null)
@@ -48,6 +49,7 @@ const Home: NextPage = () => {
         console.log(pokemon)
         setPokemon(pokemon)
         setPokemonName(pokemon.name)
+        return response.data
       }).catch((error) => {
         console.error(error)
         setPokemon(null)
@@ -58,53 +60,59 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     getPokemonById()
-  }, [pokemonId]) 
+  }, [pokemonId])
 
   return (
-    <div className="h-[100vh] flex justify-center p-4">
-      <div className="bg-red-500 p-4 max-w-[425px] min-w-[350px] sm:shadow-lg sm:my-4 rounded">
-      <Header></Header>
-      <div className="bg-red-500 flex flex-col">
-        <input type="text" value={pokemonName} onChange={(event) => setPokemonName(event.target.value)} placeholder="Who's that pokemon?" />
-        <div className="bg-white my-4 p-2 rounded">
-          <div className="flex gap-4 bg-green-600 text-green-900 font-bold p-2 min-h-[110px] rounded">
-            {pokemon && !searching ? (
-              <>
-                <div className="flex-1">
-                  <p>Pokedex: {pokemon.order}</p>
-                  <p>Name: {pokemon.name}</p>
-                  <p>Height: {pokemon.height / 10}m</p>
-                  <p>Weight: {pokemon.weight}kg</p>
-                </div>
-                <div className="flex-1 flex justify-center items-center">
-                  <img src={pokemon.sprites.front_default} alt="" />
-                </div>
-              </>
-            ) : (
-              <>{searching ? (
-                <div className="flex-1 flex justify-center items-center text-2xl">
-                  <LoadingOutlined />
-                </div>
-              ) : (
-                <div className="flex-1 flex text-2xl justify-center items-center text-center">
-                404 Not Found!
+    <div className="h-[100vh] flex flex-col justify-center items-center p-4 bg-gradient-to-b from-sky-300 to bg-indigo-300">
+      <div className="text-center m-2">| by Jesus Castaneda |</div>
+      <div className="flex h-full jusfity-center">
+        <div className="bg-red-500 p-4 max-w-[425px] min-w-[350px] sm:shadow-lg sm:my-4 rounded">
+          <Header></Header>
+          <div className="bg-red-500 flex flex-col">
+            <input type="text" value={pokemonName} onChange={(event) => setPokemonName(event.target.value)} placeholder="Who's that pokemon?" />
+            <div className="bg-white my-4 p-2 rounded">
+              <div className="flex bg-green-600 text-green-900 font-bold p-2 min-h-[110px] rounded">
+                {pokemon && !searching ? (
+                  <>
+                    <div className="flex-1">
+                      <p>Pokedex: {pokemon.order}</p>
+                      <p>Name: {pokemon.name}</p>
+                      <p>Height: {pokemon.height / 10}m</p>
+                      <p>Weight: {pokemon.weight}kg</p>
+                    </div>
+                    <div className="flex-1 flex justify-center items-center">
+                      <img src={pokemon.sprites.front_default
+                                ? pokemon.sprites.front_default
+                                : pokemon.sprites.front_default_female
+                      } alt="" />
+                    </div>
+                  </>
+                ) : (
+                  <>{searching ? (
+                    <div className="flex-1 flex justify-center items-center text-2xl">
+                      <LoadingOutlined />
+                    </div>
+                  ) : (
+                    <div className="flex-1 flex text-2xl justify-center items-center text-center">
+                      404 Not Found!
+                    </div>
+                  )}</>
+                )}
+
               </div>
-              )}</>
-            )}
-            
+            </div>
+            <div className="flex gap-4 mb-4">
+              <button className="flex-1 flex items-center justify-center bg-slate-800 text-white" onClick={() => handleNext(0)}>
+                <ArrowLeftOutlined />
+              </button>
+              <button className="flex-1 flex items-center justify-center bg-slate-800" onClick={() => handleNext(1)}>
+                <ArrowRightOutlined />
+              </button>
+            </div>
+            <button onClick={handleNameInput}>Search</button>
           </div>
-        </div>
-        <div className="flex gap-4 mb-4">
-          <button className="flex-1 flex items-center justify-center bg-slate-800 text-white" onClick={() => handleNext(0)}>
-            <ArrowLeftOutlined />
-          </button>
-          <button className="flex-1 flex items-center justify-center bg-slate-800" onClick={() => handleNext(1)}>
-            <ArrowRightOutlined />
-          </button>
-        </div>
-        <button onClick={handleNameInput}>Search</button>
+        </div >
       </div>
-    </div >
     </div>
   );
 };

@@ -64,10 +64,9 @@ const Home: NextPage = () => {
   }, [pokemonId])
 
   return (
-    <div className="h-[100vh] flex flex-col justify-center items-center p-4 bg-gradient-to-b from-sky-300 to bg-indigo-300">
-      <div className="text-center m-2">| by Jesus Castaneda |</div>
+    <div className="h-[100vh] flex flex-col justify-center items-center p-0 sm:p-4 sm:m-0 bg-gradient-to-b from-sky-300 to bg-indigo-300">
       <div className="flex h-full jusfity-center">
-        <div className="flex flex-col bg-red-500 p-4 max-w-[425px] min-w-[350px] sm:shadow-lg sm:my-4 rounded">
+        <div className="flex flex-col bg-red-500 p-4 sm:shadow-lg sm:my-4 sm:rounded">
           <Header></Header>
           <input type="text" onChange={(event) => setPokemonName(event?.target.value)} placeholder="Who's that pokemon?" />
           <PokeScreen pokemon={pokemon} pokemonNameInput={pokemonName} searching={searching} />

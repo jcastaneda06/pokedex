@@ -1,3 +1,5 @@
+import Type from './type'
+
 export interface Pokemon {
     id: number
     height: number
@@ -31,7 +33,4 @@ interface Types {
     type: Type
 }
 
-interface Type {
-    name: string
-    url: string
-}
+

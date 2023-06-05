@@ -18,7 +18,8 @@ const Home: NextPage = () => {
   }
 
   function handleNext(buttonCode: number) {
-    buttonCode == 0 ? setPokemonId(pokemonId - 1) : setPokemonId(pokemonId + 1)
+    let newNegativeId = pokemonId - 1 == 0 ? 1 : pokemonId - 1  // 0 is not a valid id
+    buttonCode == 0 ? setPokemonId(newNegativeId) : setPokemonId(pokemonId + 1)
     setPokemonName('')
   }
 

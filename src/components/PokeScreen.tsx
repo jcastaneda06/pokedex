@@ -73,9 +73,9 @@ const PokeScreen = ({ pokemon, pokemonNameInput, searching }: Props) => {
     }, [pokemon])
 
     return (
-        <div className="flex w-full flex-col">
+        <div className="flex flex-col">
             <div className="bg-white my-4 p-2 rounded">
-                <div className="flex w-full gap-4 bg-green-600 text-green-900 font-bold text-sm p-2 min-h-[110px] rounded">
+                <div className="flex gap-4 bg-green-600 text-green-900 font-bold text-sm p-2 min-h-[110px] rounded">
                     {pokemon && !searching ? (
                         <>
                             <div className="flex-1 flex flex-col">

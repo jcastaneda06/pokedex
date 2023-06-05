@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 
   function handleNameInput() {
     setPokemonName(pokemonName)
-    getPokemon()
+    getPokemonByName()
   }
 
   function handleNext(buttonCode: number) {
@@ -23,7 +23,7 @@ const Home: NextPage = () => {
     setPokemonName('')
   }
 
-  async function getPokemon() {
+  async function getPokemonByName() {
     if (pokemonName) {
       setSearching(true)
       await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`).then((response) => {
@@ -69,7 +69,8 @@ const Home: NextPage = () => {
       <div className="flex h-full jusfity-center">
         <div className="flex flex-col bg-red-500 p-4 max-w-[425px] min-w-[350px] sm:shadow-lg sm:my-4 rounded">
           <Header></Header>
-          <PokeScreen pokemon={pokemon} pokemonName={pokemonName} searching={searching} />
+          <input type="text" onChange={(event) => setPokemonName(event?.target.value)} placeholder="Who's that pokemon?" />
+          <PokeScreen pokemon={pokemon} pokemonNameInput={pokemonName} searching={searching} />
           <div className="flex gap-4 mb-4">
             <button className="flex-1 flex items-center justify-center bg-slate-800 active:bg-slate-700 transition-all" onClick={() => handleNext(0)}>
               <ArrowLeftOutlined />

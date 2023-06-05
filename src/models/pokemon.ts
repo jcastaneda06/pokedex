@@ -6,6 +6,7 @@ export interface Pokemon {
     sprites: Sprites
     stats: Stats
     weight: number
+    types: Types[]
 }
 
 interface Sprites {
@@ -21,6 +22,16 @@ interface Stats {
 }
 
 interface Stat {
+    name: string
+    url: string
+}
+
+interface Types {
+    slot: number
+    type: Type
+}
+
+interface Type {
     name: string
     url: string
 }

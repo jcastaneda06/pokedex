@@ -78,7 +78,7 @@ const Home: NextPage = () => {
                       <p>Pokedex: {pokemon.order}</p>
                       <p>Name: {pokemon.name}</p>
                       <p>Height: {pokemon.height / 10}m</p>
-                      <p>Weight: {pokemon.weight}kg</p>
+                      <p>Weight: {pokemon.weight / 10}kg</p>
                     </div>
                     <div className="flex-1 flex justify-center items-center">
                       <img src={pokemon.sprites.front_default
@@ -102,10 +102,10 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className="flex gap-4 mb-4">
-              <button className="flex-1 flex items-center justify-center bg-slate-800 text-white" onClick={() => handleNext(0)}>
+              <button className="flex-1 flex items-center justify-center bg-slate-800 active:bg-slate-700 transition-all" onClick={() => handleNext(0)}>
                 <ArrowLeftOutlined />
               </button>
-              <button className="flex-1 flex items-center justify-center bg-slate-800" onClick={() => handleNext(1)}>
+              <button className="flex-1 flex items-center justify-center bg-slate-800 active:bg-slate-700 transition-all" onClick={() => handleNext(1)}>
                 <ArrowRightOutlined />
               </button>
             </div>

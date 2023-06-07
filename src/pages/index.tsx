@@ -13,55 +13,37 @@ const Home: NextPage = () => {
   const [searching, setSearching] = useState(false)
 
   function handleNameInput() {
-    setPokemonName(pokemonName)
-    getPokemonByName()
+    getPokemon(pokemonName)
   }
 
   function handleNext(buttonCode: number) {
     let newNegativeId = pokemonId - 1 == 0 ? 1 : pokemonId - 1  // 0 is not a valid id
     buttonCode == 0 ? setPokemonId(newNegativeId) : setPokemonId(pokemonId + 1)
-    setPokemonName('')
   }
 
-  async function getPokemonByName() {
-    if (pokemonName) {
-      setSearching(true)
-      await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`).then((response) => {
-        const pokemonData: Pokemon = response.data
-        const pokemon: Pokemon = { ...pokemonData }
-        console.log(pokemon)
-        setPokemonId(pokemon.id)
-        setPokemon(pokemon)
-        return response.data
-      }).catch((error) => {
-        console.error(error)
-        setPokemon(null)
-      });
-    }
-    setSearching(false)
-  }
+  async function getPokemon(name?: string, id?: number) {
+    if (!pokemonName && !pokemonId) { return null }
 
-  async function getPokemonById() {
-    if (pokemonId) {
-      setSearching(true)
-      await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`).then((response) => {
-        const pokemonData: Pokemon = response.data
-        const pokemon: Pokemon = { ...pokemonData }
-        console.log(pokemon)
-        setPokemon(pokemon)
-        setPokemonName(pokemon.name)
-        return response.data
-      }).catch((error) => {
-        console.error(error)
-        setPokemon(null)
-      })
-    }
-    setSearching(false)
+    let searchParam = name ? name.toLowerCase() : id ? id : pokemonName ? pokemonName.toLowerCase() : pokemonId
+    setSearching(true)
+    await axios.get(`https://pokeapi.co/api/v2/pokemon/${searchParam}`).then((response) => {
+      const pokemonData: Pokemon = response.data
+      const pokemon: Pokemon = { ...pokemonData }
+      console.log(pokemon)
+      setPokemonId(pokemon.id)
+      setPokemon(pokemon)
+      return response.data
+    }).catch((error) => {
+      console.error(error)
+      setPokemon(null)
+    }).finally(() => setSearching(false));
   }
 
   useEffect(() => {
-    getPokemonById()
+    getPokemon('', pokemonId)
   }, [pokemonId])
+
+
 
   return (
     <div className="h-[100vh] w-[100vw] flex flex-col justify-center items-center p-0 sm:p-4 sm:m-0 bg-gradient-to-b from-sky-300 to bg-indigo-300">
@@ -83,6 +65,6 @@ const Home: NextPage = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Home
